@@ -9,11 +9,7 @@ vkBridge.send('VKWebAppGetUserInfo')
   .catch(console.error);
 
 // Обработчик кнопки «Проверить»
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('checkBtn');
-  const output = document.getElementById('output');
-
-  btn.addEventListener('click', () => {
+btn.addEventListener('click', () => {
   const url = document.getElementById('siteUrl').value.trim();
   if (!url) {
     output.textContent = 'Введите URL сайта';
@@ -22,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   output.textContent = 'Отправка запроса…';
 
   // Замените на ваш реальный webhook URL
-  const webhookUrl = 'https://webhook.site/ec94ff4d-1b1d-4f23-b37f-4ef4ba9e59a1';
+  const webhookUrl = 'https://webhook.site/ВАШ_ID';
 
   fetch(webhookUrl, {
     method: 'POST',
@@ -42,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
     // Имитация отправки на сервер: здесь покажем входные данные
     const result = {
       user_id: window.userId || null,
@@ -51,4 +48,3 @@ document.addEventListener('DOMContentLoaded', () => {
     output.textContent = JSON.stringify(result, null, 2);
   });
 });
-
