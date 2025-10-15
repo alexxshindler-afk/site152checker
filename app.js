@@ -8,42 +8,10 @@ vkBridge.send('VKWebAppGetUserInfo')
   })
   .catch(console.error);
 
-// Обработчик кнопки «Проверить»
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('checkBtn');
-  const output = document.getElementById('output');
-
-  btn.addEventListener('click', () => {
-    const url = document.getElementById('siteUrl').value.trim();
-    if (!url) {
-      output.textContent = 'Введите URL сайта';
-      return;
-    }
-    output.textContent = 'Отправка запроса…';
-
-    // Замените на ваш реальный webhook URL
-    const webhookUrl = 'https://n8n.logovo-club.ru:8443/webhook/webhook-check-site';
-
-    fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id: window.userId || null,
-        url: url
-      })
-    })
-      .then(res => res.json().catch(() => null))
-      .then(data => {
-        output.textContent = 'Ответ сервера:\n' + JSON.stringify(data, null, 2);
-      })
-      .catch(err => {
-        console.error(err);
-        output.textContent = 'Ошибка: ' + err.message;
-      });
-    
-    function renderReport(data) {
+// Функция для отображения отчёта в #report
+function renderReport(data) {
   const container = document.getElementById('report');
-  container.innerHTML = '';
+  container.innerHTML = ''; // очистить
   const sections = [
     { key: 'privacy_policy', title: 'Политика конфиденциальности' },
     { key: 'https', title: 'Использование HTTPS' },
@@ -70,14 +38,38 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(summary);
   }
 }
-// В ответе вызывайте renderReport(data)
-.then(data => {
-  output.textContent = '';
-  renderReport(data);
-})
 
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('checkBtn');
+  const output = document.getElementById('output');
+
+  btn.addEventListener('click', () => {
+    const url = document.getElementById('siteUrl').value.trim();
+    if (!url) {
+      output.textContent = 'Введите URL сайта';
+      return;
+    }
+    output.textContent = 'Отправка запроса…';
+
+    // Замените на ваш реальный webhook URL
+    const webhookUrl = 'https://n8n.logovo-club.ru:8443/webhook/webhook-check-site';
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: window.userId || null,
+        url: url
+      })
+    })
+      .then(res => res.json().catch(() => null))
+      .then(data => {
+        output.textContent = '';  // убираем старый вывод сырого JSON
+        renderReport(data);
+      })
+      .catch(err => {
+        console.error(err);
+        output.textContent = 'Ошибка: ' + err.message;
+      });
   });
 });
-
-
-
