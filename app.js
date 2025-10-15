@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     output.textContent = 'Отправка запроса…';
 
     // Замените на ваш реальный webhook URL
-    const webhookUrl = 'https://webhook.site/ec94ff4d-1b1d-4f23-b37f-4ef4ba9e59a1';
+    const webhookUrl = 'https://n8n.logovo-club.ru:8443/webhook-test/webhook-check-site';
 
     fetch(webhookUrl, {
       method: 'POST',
@@ -42,3 +42,4 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   });
 });
+
