@@ -18,7 +18,7 @@ btn.addEventListener('click', () => {
   output.textContent = 'Отправка запроса…';
 
   // Замените на ваш реальный webhook URL
-  const webhookUrl = 'https://webhook.site/ВАШ_ID';
+  const webhookUrl = 'https://webhook.site/ec94ff4d-1b1d-4f23-b37f-4ef4ba9e59a1';
 
   fetch(webhookUrl, {
     method: 'POST',
@@ -48,3 +48,4 @@ btn.addEventListener('click', () => {
     output.textContent = JSON.stringify(result, null, 2);
   });
 });
+
